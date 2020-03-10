@@ -1,142 +1,64 @@
-# @summary A short summary of the purpose of this class
+# @summary Installs and configure vsftpd
 #
-# A description of what this class does
+# Please see man vsftpd.conf(5) for configuration option (no i am not going to list ~130 options here)
 #
 # @example
 #   include vsftpd
 class vsftpd (
-    Enum['YES','NO'] $allow_anon_ssl = 'NO',
-    Enum['YES','NO'] $anon_mkdir_write_enable = 'NO',
-    Enum['YES','NO'] $anon_other_write_enable = 'NO',
-    Enum['YES','NO'] $anon_upload_enable = 'NO',
-    Enum['YES','NO'] $anon_world_readable_only = 'YES',
-    Enum['YES','NO'] $anonymous_enable = 'YES',
-    Enum['YES','NO'] $ascii_download_enable = 'NO',
-    Enum['YES','NO'] $ascii_upload_enable = 'NO',
-    Enum['YES','NO'] $async_abor_enable = 'NO',
-    Enum['YES','NO'] $background = 'YES',
-    Enum['YES','NO'] $check_shell = 'YES',
-    Enum['YES','NO'] $chmod_enable = 'YES',
-    Enum['YES','NO'] $chown_uploads = 'NO',
-    Enum['YES','NO'] $chroot_list_enable = 'NO',
-    Enum['YES','NO'] $chroot_local_user = 'NO',
-    Enum['YES','NO'] $connect_from_port_20 = 'NO',
-    Enum['YES','NO'] $debug_ssl = 'NO',
-    Enum['YES','NO'] $delete_failed_uploads = 'NO',
-    Enum['YES','NO'] $deny_email_enable = 'NO',
-    Enum['YES','NO'] $dirlist_enable = 'YES',
-    Enum['YES','NO'] $dirmessage_enable = 'NO',
-    Enum['YES','NO'] $download_enable = 'YES',
-    Enum['YES','NO'] $dual_log_enable = 'NO',
-    Enum['YES','NO'] $force_dot_files = 'NO',
-    Enum['YES','NO'] $force_anon_data_ssl = 'NO',
-    Enum['YES','NO'] $force_anon_logins_ssl = 'NO',
-    Enum['YES','NO'] $force_local_data_ssl = 'YES',
-    Enum['YES','NO'] $force_local_logins_ssl = 'YES',
-    Enum['YES','NO'] $guest_enable = 'NO',
-    Enum['YES','NO'] $hide_ids = 'NO',
-    Enum['YES','NO'] $implicit_ssl = 'NO',
-    Enum['YES','NO'] $listen = 'NO',
-    Enum['YES','NO'] $listen_ipv6 = 'NO',
-    Enum['YES','NO'] $local_enable = 'NO',
-    Enum['YES','NO'] $lock_upload_files = 'YES',
-    Enum['YES','NO'] $log_ftp_protocol = 'NO',
-    Enum['YES','NO'] $ls_recurse_enable = 'NO',
-    Enum['YES','NO'] $mdtm_write = 'YES',
-    Enum['YES','NO'] $no_anon_password = 'NO',
-    Enum['YES','NO'] $no_log_lock = 'NO',
-    Enum['YES','NO'] $one_process_model = 'NO',
-    Enum['YES','NO'] $passwd_chroot_enable = 'NO',
-    Enum['YES','NO'] $pasv_addr_resolve = 'NO',
-    Enum['YES','NO'] $pasv_enable = 'YES',
-    Enum['YES','NO'] $pasv_promiscuous = 'NO',
-    Enum['YES','NO'] $port_enable = 'YES',
-    Enum['YES','NO'] $port_promiscuous = 'NO',
-    Enum['YES','NO'] $require_cert = 'NO',
-    Enum['YES','NO'] $require_ssl_reuse = 'YES',
-    Enum['YES','NO'] $reverse_lookup_enable = 'YES',
-    Enum['YES','NO'] $run_as_launching_user = 'NO',
-    Enum['YES','NO'] $secure_email_list_enable = 'NO',
-    Enum['YES','NO'] $session_support = 'NO',
-    Enum['YES','NO'] $setproctitle_enable = 'NO',
-    Enum['YES','NO'] $ssl_enable = 'NO',
-    Enum['YES','NO'] $ssl_request_cert = 'YES',
-    Enum['YES','NO'] $ssl_sslv2 = 'NO',
-    Enum['YES','NO'] $ssl_sslv3 = 'NO',
-    Enum['YES','NO'] $ssl_tlsv1 = 'YES',
-    Enum['YES','NO'] $strict_ssl_read_eof = 'NO',
-    Enum['YES','NO'] $strict_ssl_write_shutdown = 'NO',
-    Enum['YES','NO'] $syslog_enable = 'NO',
-    Enum['YES','NO'] $tcp_wrappers = 'NO',
-    Enum['YES','NO'] $text_userdb_names = 'NO',
-    Enum['YES','NO'] $tilde_user_enable = 'NO',
-    Enum['YES','NO'] $use_localtime = 'NO',
-    Enum['YES','NO'] $use_sendfile = 'YES',
-    Enum['YES','NO'] $userlist_deny = 'YES',
-    Enum['YES','NO'] $userlist_enable = 'NO',
-    Enum['YES','NO'] $validate_cert = 'NO',
-    Enum['YES','NO'] $userlist_log = 'NO',
-    Enum['YES','NO'] $virtual_use_local_privs = 'NO',
-    Enum['YES','NO'] $write_enable = 'NO',
-    Enum['YES','NO'] $xferlog_enable = 'NO',
-    Enum['YES','NO'] $xferlog_std_format = 'NO',
-    Enum['YES','NO'] $isolate_network = 'YES',
-    Enum['YES','NO'] $isolate = 'YES',
-    Integer $accept_timeout = 60,
-    Integer $anon_max_rate = 0,
-    $anon_umask = 077,
-    Stdlib::Filemode $chown_upload_mode = 0600,
-    Integer $connect_timeout = 60,
-    Integer $data_connection_timeout = 300,
-    Integer $delay_failed_login = 1,
-    Integer $delay_successful_login = 0,
-    Stdlib::Filemode $file_open_mode = 0666,
-    Stdlib::Port $ftp_data_port = 20,
-    Integer $idle_session_timeout = 300,
-    Stdlib::Port $listen_port = 21,
-    Integer $local_max_rate = 0,
-    $local_umask = 077,
-    Integer $max_clients = 2000,
-    Integer $max_login_fails = 3,
-    Integer $max_per_ip = 50,
-    Stdlib::Port $pasv_max_port = 0,
-    Stdlib::Port $pasv_min_port = 0,
-    Integer $trans_chunk_size = 0,
-    Optionnal     $anon_root,
-    String $banned_email_file = '/etc/vsftpd/banned_emails',
-    Optionnal     $banner_file,
-    Optionnal     $ca_certs_file,
-    String $chown_username = 'root',
-    String $chroot_list_file = '/etvsftpd.confc/vsftpd.chroot_list',
-    Optionnal     $cmds_allowed,
-    Optionnal     $cmds_denied,
-    Optionnal     $deny_file,
-    Optionnal $dsa_cert_file,
-    Optionnal     $dsa_private_key_file,
-    String $email_password_file = '/etc/vsftpd/email_passwords',
-    String $ftp_username = 'ftp',
-    Optionnal     $ftpd_banner,
-    String $guest_username = 'ftp',
-    Optionnal     $hide_file,
-    Optionnal     $listen_address,
-    Optionnal     $listen_address6,
-    Optionnal     $local_root,
-    String $message_file = '.message',
-    String $nopriv_user = 'nobody',
-    String $pam_service_name = 'ftp',
-    $pasv_address = '(none',
-    String $rsa_cert_file = '/usr/share/ssl/certs/vsftpd.pem',
-    Optionnal[String] $rsa_private_key_file,
-    Stdlib::Unixpath $secure_chroot_dir = '/usr/share/empty',
-    String $ssl_ciphers = 'DES-CBC3-SHA',
-    Optionnal     $user_config_dir,
-    Optionnal     $user_sub_token,
-    String $userlist_file = '/etc/vsftpd/user_list',
-    String $vsftpd_log_file = '/var/log/vsftpd.log',
-    String $xferlog_file  = '/var/log/xferlog',
+  $config,
+  Optionnal $cert_content,
+  Optionnal $key_content,
+  Optionnal $users,
+  Optionnal $salt,
 ){
 
+  case $facts['os']['family'] {
+    default:  { fail('OS Not supported') }
+    'RedHat': {
+      $config_file = '/etc/vsftpd/vsftpd.conf'
+      service { 'vsftpd':
+        require => Package['vsftpd'],
+        enable  => true,
+      }
+    }
+    'Debian': {
+      $config_file = '/etc/vsftpd.conf'
+    }
+  }
 
+  package { 'vsftpd':
+    ensure => present,
+  }
 
+  package {'unix_crypt':
+    ensure   => present,
+    provider => gem,
+  }
+
+  file { $config_file:
+    ensure  => present,
+    content => $config.map |$key,$value| { $key=$value },
+    require => Package['vsftpd'],
+  }
+
+  if ($cert_content and $key_content and $config['rsa_cert_file'] and $config['rsa_private_key_file']) {
+    file { $config['rsa_cert_file']:
+      ensure  => present,
+      content => $cert_content,
+      require => Package['vsftpd'],
+    }
+    file { $config['rsa_private_key_file']:
+      ensure  => present,
+      content => $key_content,
+      require => Package['vsftpd'],
+    }
+  }
+
+  if $users and $salt {
+    file { '/etc/vsftpd/vsftp-users':
+      ensure  => present,
+      content => $users.map |$key,$value| { $key + ':' + passwd($value, $salt) },
+      require => Package['vsftpd'],
+    }
+  }
 }
-
